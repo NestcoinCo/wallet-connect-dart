@@ -4,7 +4,7 @@ import 'package:wallet_connect/utils/constants.dart';
 
 part 'json_rpc_error_response.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class JsonRpcErrorResponse {
   final int id;
   final String jsonrpc = JSONRPC_VERSION;

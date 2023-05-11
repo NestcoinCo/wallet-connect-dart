@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'wc_session_update.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCSessionUpdate {
   final bool approved;
   final int? chainId;

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'wc_session.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCSession {
   final String topic;
   final String version;

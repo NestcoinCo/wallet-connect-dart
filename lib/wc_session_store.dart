@@ -5,7 +5,7 @@ import 'package:wallet_connect/models/wc_peer_meta.dart';
 
 part 'wc_session_store.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCSessionStore {
   final WCSession session;
   final WCPeerMeta peerMeta;

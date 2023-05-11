@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'json_rpc_error.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class JsonRpcError {
   final int code;
   final String message;

@@ -24,5 +24,5 @@ Map<String, dynamic> _$WCApproveSessionResponseToJson(
       'chainId': instance.chainId,
       'accounts': instance.accounts,
       'peerId': instance.peerId,
-      'peerMeta': instance.peerMeta,
+      'peerMeta': instance.peerMeta.toJson(),
     };

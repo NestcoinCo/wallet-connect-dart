@@ -17,5 +17,5 @@ Map<String, dynamic> _$JsonRpcErrorResponseToJson(
         JsonRpcErrorResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'error': instance.error,
+      'error': instance.error.toJson(),
     };

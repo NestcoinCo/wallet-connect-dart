@@ -3,7 +3,7 @@ import 'package:wallet_connect/models/message_type.dart';
 
 part 'wc_socket_message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCSocketMessage {
   final String topic;
   final MessageType type;
