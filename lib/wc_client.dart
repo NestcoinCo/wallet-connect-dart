@@ -24,14 +24,14 @@ import 'package:wallet_connect/wc_session_store.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-typedef SessionRequest = void Function(int id, WCPeerMeta peerMeta);
+typedef SessionRequest = void Function(String id, WCPeerMeta peerMeta);
 typedef SocketError = void Function(dynamic message);
 typedef SocketClose = void Function(int? code, String? reason);
-typedef EthSign = void Function(int id, WCEthereumSignMessage message);
+typedef EthSign = void Function(String id, WCEthereumSignMessage message);
 typedef EthTransaction = void Function(
-    int id, WCEthereumTransaction transaction);
-typedef CustomRequest = void Function(int id, String payload);
-typedef WalletSwitchNetwork = void Function(int id, int chainId);
+    String id, WCEthereumTransaction transaction);
+typedef CustomRequest = void Function(String id, String payload);
+typedef WalletSwitchNetwork = void Function(String id, int chainId);
 
 class WCClient {
   late WebSocketChannel _webSocket;
@@ -133,7 +133,7 @@ class WCClient {
       peerMeta: _peerMeta!,
     );
     final response = JsonRpcResponse<Map<String, dynamic>>(
-      id: _handshakeId,
+      id: "$_handshakeId",
       result: result.toJson(),
     );
     // print('approveSession ${jsonEncode(response.toJson())}');
@@ -153,7 +153,7 @@ class WCClient {
       accounts: accounts,
     );
     final request = JsonRpcRequest(
-      id: DateTime.now().millisecondsSinceEpoch,
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
       method: WCMethod.SESSION_UPDATE,
       params: [param.toJson()],
     );
@@ -173,7 +173,7 @@ class WCClient {
   }
 
   approveRequest<T>({
-    required int id,
+    required String id,
     required T result,
   }) {
     final response = JsonRpcResponse<T>(
@@ -246,9 +246,9 @@ class WCClient {
     _socketSink!.add(jsonEncode(message));
   }
 
-  _invalidParams(int id) {
+  _invalidParams(String id) {
     final response = JsonRpcErrorResponse(
-      id: id.toString(),
+      id: id,
       error: JsonRpcError.invalidParams("Invalid parameters"),
     );
     _encryptAndSend(jsonEncode(response.toJson()));
@@ -319,7 +319,7 @@ class WCClient {
       case WCMethod.SESSION_REQUEST:
         final param = WCSessionRequest.fromJson(request.params!.first);
         // print('SESSION_REQUEST $param');
-        _handshakeId = request.id;
+        _handshakeId = int.parse(request.id);
         _remotePeerId = param.peerId;
         _remotePeerMeta = param.peerMeta;
         _chainId = param.chainId;
