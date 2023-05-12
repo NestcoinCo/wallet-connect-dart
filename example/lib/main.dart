@@ -404,7 +404,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pop(context);
       },
       onReject: () {
-        _wcClient.rejectRequest(id: id);
+        _wcClient.rejectRequest(id: id.toString());
         Navigator.pop(context);
       },
     );
@@ -433,7 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pop(context);
       },
       onReject: () {
-        _wcClient.rejectRequest(id: id);
+        _wcClient.rejectRequest(id: id.toString());
         Navigator.pop(context);
       },
     );
@@ -710,7 +710,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () {
-                      _wcClient.rejectRequest(id: id);
+                      _wcClient.rejectRequest(id: id.toString());
                       Navigator.pop(context);
                     },
                     child: Text('REJECT'),

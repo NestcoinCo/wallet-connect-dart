@@ -166,7 +166,7 @@ class WCClient {
     }
 
     final response = JsonRpcErrorResponse(
-      id: _handshakeId,
+      id: _handshakeId.toString(),
       error: JsonRpcError.serverError(message),
     );
     _encryptAndSend(jsonEncode(response.toJson()));
@@ -184,7 +184,7 @@ class WCClient {
   }
 
   rejectRequest({
-    required int id,
+    required String id,
     String message = "Reject by the user",
   }) {
     final response = JsonRpcErrorResponse(
@@ -248,7 +248,7 @@ class WCClient {
 
   _invalidParams(int id) {
     final response = JsonRpcErrorResponse(
-      id: id,
+      id: id.toString(),
       error: JsonRpcError.invalidParams("Invalid parameters"),
     );
     _encryptAndSend(jsonEncode(response.toJson()));

@@ -6,7 +6,7 @@ part 'json_rpc_error_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class JsonRpcErrorResponse {
-  final int id;
+  final String id;
   final String jsonrpc = JSONRPC_VERSION;
   final JsonRpcError error;
   JsonRpcErrorResponse({
