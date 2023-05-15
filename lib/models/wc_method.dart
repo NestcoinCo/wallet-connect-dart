@@ -24,4 +24,7 @@ enum WCMethod {
 
   @JsonValue("wallet_switchEthereumChain")
   WALLET_SWITCH_NETWORK,
+
+  @JsonValue("eth_signTypedData_v4")
+  ETH_SIGN_TYPE_DATA_V4,
 }
