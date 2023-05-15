@@ -4,13 +4,9 @@ import 'package:wallet_connect/utils/constants.dart';
 
 part 'json_rpc_request.g.dart';
 
-String intToString(dynamic value) =>
-    (value is String) ? value : value.toString();
-
 @JsonSerializable(explicitToJson: true)
 class JsonRpcRequest {
-  @JsonKey(fromJson: intToString)
-  final String id;
+  final dynamic id;
   final String jsonrpc;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final WCMethod? method;

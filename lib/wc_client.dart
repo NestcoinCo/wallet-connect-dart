@@ -24,14 +24,14 @@ import 'package:wallet_connect/wc_session_store.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-typedef SessionRequest = void Function(String id, WCPeerMeta peerMeta);
+typedef SessionRequest = void Function(dynamic id, WCPeerMeta peerMeta);
 typedef SocketError = void Function(dynamic message);
 typedef SocketClose = void Function(int? code, String? reason);
-typedef EthSign = void Function(String id, WCEthereumSignMessage message);
+typedef EthSign = void Function(dynamic id, WCEthereumSignMessage message);
 typedef EthTransaction = void Function(
-    String id, WCEthereumTransaction transaction);
-typedef CustomRequest = void Function(String id, String payload);
-typedef WalletSwitchNetwork = void Function(String id, int chainId);
+    dynamic id, WCEthereumTransaction transaction);
+typedef CustomRequest = void Function(dynamic id, String payload);
+typedef WalletSwitchNetwork = void Function(dynamic id, int chainId);
 
 class WCClient {
   late WebSocketChannel _webSocket;
