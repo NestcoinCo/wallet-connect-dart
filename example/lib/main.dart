@@ -275,7 +275,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _onSwitchNetwork(String id, int chainId) async {
+  _onSwitchNetwork(dynamic id, int chainId) async {
     await _wcClient.updateSession(chainId: chainId);
     _wcClient.approveRequest<Null>(id: id, result: null);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ));
   }
 
-  _onSessionRequest(String id, WCPeerMeta peerMeta) {
+  _onSessionRequest(dynamic id, WCPeerMeta peerMeta) {
     showDialog(
       context: context,
       builder: (_) => SessionRequestView(
@@ -383,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onSignTransaction(
-    String id,
+    dynamic id,
     WCEthereumTransaction ethereumTransaction,
   ) {
     _onTransaction(
@@ -411,7 +411,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onSendTransaction(
-    String id,
+    dynamic id,
     WCEthereumTransaction ethereumTransaction,
   ) {
     _onTransaction(
@@ -606,7 +606,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onSign(
-    String id,
+    dynamic id,
     WCEthereumSignMessage ethereumSignMessage,
   ) {
     showDialog(
@@ -678,7 +678,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () async {
                       String signedDataHex;
                       if (ethereumSignMessage.type ==
-                          WCSignType.TYPED_MESSAGE) {
+                          WCSignType.TYPED_MESSAGE_V1) {
                         signedDataHex = EthSigUtil.signTypedData(
                           privateKey: privateKey,
                           jsonData: ethereumSignMessage.data!,

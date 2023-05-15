@@ -33,4 +33,5 @@ const _$WCMethodEnumMap = {
   WCMethod.ETH_SEND_TRANSACTION: 'eth_sendTransaction',
   WCMethod.WALLET_SWITCH_NETWORK: 'wallet_switchEthereumChain',
   WCMethod.ETH_SIGN_TYPE_DATA_V4: 'eth_signTypedData_v4',
+  WCMethod.ETH_SIGN_TYPE_DATA_V3: 'eth_signTypedData_v3',
 };
