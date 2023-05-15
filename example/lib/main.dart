@@ -678,7 +678,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () async {
                       String signedDataHex;
                       if (ethereumSignMessage.type ==
-                          WCSignType.TYPED_MESSAGE_V1) {
+                          WCSignType.TYPED_MESSAGE) {
                         signedDataHex = EthSigUtil.signTypedData(
                           privateKey: privateKey,
                           jsonData: ethereumSignMessage.data!,

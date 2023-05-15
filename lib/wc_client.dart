@@ -371,18 +371,11 @@ class WCClient {
           throw InvalidJsonRpcParamsException(request.id);
         }
 
-        WCSignType wcSignType = WCSignType.TYPED_MESSAGE_V1;
-        if (request.method == WCMethod.ETH_SIGN_TYPE_DATA_V4) {
-          wcSignType = WCSignType.TYPED_MESSAGE_V4;
-        } else if (request.method == WCMethod.ETH_SIGN_TYPE_DATA_V3) {
-          wcSignType = WCSignType.TYPED_MESSAGE_V3;
-        }
-
         onEthSign?.call(
           request.id,
           WCEthereumSignMessage(
             raw: params,
-            type: wcSignType,
+            type: WCSignType.TYPED_MESSAGE,
           ),
         );
         break;
