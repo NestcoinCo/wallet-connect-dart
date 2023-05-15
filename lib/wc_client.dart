@@ -314,7 +314,7 @@ class WCClient {
 
   _handleRequest(JsonRpcRequest request) {
     if (request.params == null) throw InvalidJsonRpcParamsException(request.id);
-
+    print(request.toJson());
     switch (request.method) {
       case WCMethod.SESSION_REQUEST:
         final param = WCSessionRequest.fromJson(request.params!.first);
