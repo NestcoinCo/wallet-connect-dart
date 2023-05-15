@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'wc_encryption_payload.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCEncryptionPayload {
   final String data;
   final String hmac;

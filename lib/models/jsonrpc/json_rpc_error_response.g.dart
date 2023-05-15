@@ -9,7 +9,7 @@ part of 'json_rpc_error_response.dart';
 JsonRpcErrorResponse _$JsonRpcErrorResponseFromJson(
         Map<String, dynamic> json) =>
     JsonRpcErrorResponse(
-      id: json['id'] as int,
+      id: json['id'],
       error: JsonRpcError.fromJson(json['error'] as Map<String, dynamic>),
     );
 
@@ -17,5 +17,5 @@ Map<String, dynamic> _$JsonRpcErrorResponseToJson(
         JsonRpcErrorResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'error': instance.error,
+      'error': instance.error.toJson(),
     };

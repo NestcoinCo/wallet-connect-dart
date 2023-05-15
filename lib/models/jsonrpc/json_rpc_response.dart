@@ -3,9 +3,9 @@ import 'package:wallet_connect/utils/constants.dart';
 
 part 'json_rpc_response.g.dart';
 
-@JsonSerializable(genericArgumentFactories: true)
+@JsonSerializable(genericArgumentFactories: true, explicitToJson: true)
 class JsonRpcResponse<T> {
-  final int id;
+  final dynamic id;
   final String jsonrpc;
   final T result;
   JsonRpcResponse({

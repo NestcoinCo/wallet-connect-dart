@@ -275,7 +275,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _onSwitchNetwork(int id, int chainId) async {
+  _onSwitchNetwork(dynamic id, int chainId) async {
     await _wcClient.updateSession(chainId: chainId);
     _wcClient.approveRequest<Null>(id: id, result: null);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ));
   }
 
-  _onSessionRequest(int id, WCPeerMeta peerMeta) {
+  _onSessionRequest(dynamic id, WCPeerMeta peerMeta) {
     showDialog(
       context: context,
       builder: (_) => SessionRequestView(
@@ -383,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onSignTransaction(
-    int id,
+    dynamic id,
     WCEthereumTransaction ethereumTransaction,
   ) {
     _onTransaction(
@@ -404,14 +404,14 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pop(context);
       },
       onReject: () {
-        _wcClient.rejectRequest(id: id);
+        _wcClient.rejectRequest(id: id.toString());
         Navigator.pop(context);
       },
     );
   }
 
   _onSendTransaction(
-    int id,
+    dynamic id,
     WCEthereumTransaction ethereumTransaction,
   ) {
     _onTransaction(
@@ -433,14 +433,14 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pop(context);
       },
       onReject: () {
-        _wcClient.rejectRequest(id: id);
+        _wcClient.rejectRequest(id: id.toString());
         Navigator.pop(context);
       },
     );
   }
 
   _onTransaction({
-    required int id,
+    required String id,
     required WCEthereumTransaction ethereumTransaction,
     required String title,
     required VoidCallback onConfirm,
@@ -606,7 +606,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onSign(
-    int id,
+    dynamic id,
     WCEthereumSignMessage ethereumSignMessage,
   ) {
     showDialog(
@@ -710,7 +710,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () {
-                      _wcClient.rejectRequest(id: id);
+                      _wcClient.rejectRequest(id: id.toString());
                       Navigator.pop(context);
                     },
                     child: Text('REJECT'),

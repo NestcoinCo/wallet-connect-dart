@@ -3,7 +3,7 @@ import 'package:wallet_connect/models/wc_peer_meta.dart';
 
 part 'wc_session_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCSessionRequest {
   final String peerId;
   final WCPeerMeta peerMeta;

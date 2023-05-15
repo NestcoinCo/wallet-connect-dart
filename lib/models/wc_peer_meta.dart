@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'wc_peer_meta.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCPeerMeta {
   final String name;
   final String url;

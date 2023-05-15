@@ -24,14 +24,14 @@ import 'package:wallet_connect/wc_session_store.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-typedef SessionRequest = void Function(int id, WCPeerMeta peerMeta);
+typedef SessionRequest = void Function(dynamic id, WCPeerMeta peerMeta);
 typedef SocketError = void Function(dynamic message);
 typedef SocketClose = void Function(int? code, String? reason);
-typedef EthSign = void Function(int id, WCEthereumSignMessage message);
+typedef EthSign = void Function(dynamic id, WCEthereumSignMessage message);
 typedef EthTransaction = void Function(
-    int id, WCEthereumTransaction transaction);
-typedef CustomRequest = void Function(int id, String payload);
-typedef WalletSwitchNetwork = void Function(int id, int chainId);
+    dynamic id, WCEthereumTransaction transaction);
+typedef CustomRequest = void Function(dynamic id, String payload);
+typedef WalletSwitchNetwork = void Function(dynamic id, int chainId);
 
 class WCClient {
   late WebSocketChannel _webSocket;
@@ -42,7 +42,7 @@ class WCClient {
   WCSession? _session;
   WCPeerMeta? _peerMeta;
   WCPeerMeta? _remotePeerMeta;
-  int _handshakeId = -1;
+  dynamic _handshakeId = null;
   int? _chainId;
   String? _peerId;
   String? _remotePeerId;
@@ -121,7 +121,7 @@ class WCClient {
       );
 
   approveSession({required List<String> accounts, int? chainId}) {
-    if (_handshakeId <= 0) {
+    if (_handshakeId == null) {
       throw HandshakeException();
     }
 
@@ -153,7 +153,7 @@ class WCClient {
       accounts: accounts,
     );
     final request = JsonRpcRequest(
-      id: DateTime.now().millisecondsSinceEpoch,
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
       method: WCMethod.SESSION_UPDATE,
       params: [param.toJson()],
     );
@@ -161,7 +161,7 @@ class WCClient {
   }
 
   rejectSession({String message = "Session rejected"}) {
-    if (_handshakeId <= 0) {
+    if (_handshakeId == null) {
       throw HandshakeException();
     }
 
@@ -173,7 +173,7 @@ class WCClient {
   }
 
   approveRequest<T>({
-    required int id,
+    required dynamic id,
     required T result,
   }) {
     final response = JsonRpcResponse<T>(
@@ -184,7 +184,7 @@ class WCClient {
   }
 
   rejectRequest({
-    required int id,
+    required dynamic id,
     String message = "Reject by the user",
   }) {
     final response = JsonRpcErrorResponse(
@@ -246,7 +246,7 @@ class WCClient {
     _socketSink!.add(jsonEncode(message));
   }
 
-  _invalidParams(int id) {
+  _invalidParams(String id) {
     final response = JsonRpcErrorResponse(
       id: id,
       error: JsonRpcError.invalidParams("Invalid parameters"),
@@ -314,7 +314,6 @@ class WCClient {
 
   _handleRequest(JsonRpcRequest request) {
     if (request.params == null) throw InvalidJsonRpcParamsException(request.id);
-
     switch (request.method) {
       case WCMethod.SESSION_REQUEST:
         final param = WCSessionRequest.fromJson(request.params!.first);
@@ -363,6 +362,8 @@ class WCClient {
         );
         break;
       case WCMethod.ETH_SIGN_TYPE_DATA:
+      case WCMethod.ETH_SIGN_TYPE_DATA_V4:
+      case WCMethod.ETH_SIGN_TYPE_DATA_V3:
         // print('ETH_SIGN_TYPE_DATA $request');
         final params = request.params!.cast<String>();
         if (params.length < 2) {
@@ -402,7 +403,7 @@ class WCClient {
   }
 
   _resetState() {
-    _handshakeId = -1;
+    _handshakeId = null;
     _isConnected = false;
     _session = null;
     _peerId = null;

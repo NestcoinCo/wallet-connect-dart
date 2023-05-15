@@ -19,9 +19,9 @@ WCSessionStore _$WCSessionStoreFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$WCSessionStoreToJson(WCSessionStore instance) =>
     <String, dynamic>{
-      'session': instance.session,
-      'peerMeta': instance.peerMeta,
-      'remotePeerMeta': instance.remotePeerMeta,
+      'session': instance.session.toJson(),
+      'peerMeta': instance.peerMeta.toJson(),
+      'remotePeerMeta': instance.remotePeerMeta.toJson(),
       'chainId': instance.chainId,
       'peerId': instance.peerId,
       'remotePeerId': instance.remotePeerId,

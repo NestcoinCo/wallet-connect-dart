@@ -3,7 +3,7 @@ import 'package:wallet_connect/models/wc_peer_meta.dart';
 
 part 'wc_approve_session_response.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WCApproveSessionResponse {
   final bool approved;
   final int? chainId;

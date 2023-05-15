@@ -16,6 +16,6 @@ WCSessionRequest _$WCSessionRequestFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$WCSessionRequestToJson(WCSessionRequest instance) =>
     <String, dynamic>{
       'peerId': instance.peerId,
-      'peerMeta': instance.peerMeta,
+      'peerMeta': instance.peerMeta.toJson(),
       'chainId': instance.chainId,
     };
