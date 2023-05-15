@@ -173,7 +173,7 @@ class WCClient {
   }
 
   approveRequest<T>({
-    required String id,
+    required dynamic id,
     required T result,
   }) {
     final response = JsonRpcResponse<T>(
@@ -184,7 +184,7 @@ class WCClient {
   }
 
   rejectRequest({
-    required String id,
+    required dynamic id,
     String message = "Reject by the user",
   }) {
     final response = JsonRpcErrorResponse(
