@@ -42,7 +42,7 @@ class WCClient {
   WCSession? _session;
   WCPeerMeta? _peerMeta;
   WCPeerMeta? _remotePeerMeta;
-  int _handshakeId = -1;
+  dynamic _handshakeId = null;
   int? _chainId;
   String? _peerId;
   String? _remotePeerId;
@@ -121,7 +121,7 @@ class WCClient {
       );
 
   approveSession({required List<String> accounts, int? chainId}) {
-    if (_handshakeId <= 0) {
+    if (_handshakeId == null) {
       throw HandshakeException();
     }
 
@@ -133,7 +133,7 @@ class WCClient {
       peerMeta: _peerMeta!,
     );
     final response = JsonRpcResponse<Map<String, dynamic>>(
-      id: "$_handshakeId",
+      id: _handshakeId,
       result: result.toJson(),
     );
     // print('approveSession ${jsonEncode(response.toJson())}');
@@ -161,12 +161,12 @@ class WCClient {
   }
 
   rejectSession({String message = "Session rejected"}) {
-    if (_handshakeId <= 0) {
+    if (_handshakeId == null) {
       throw HandshakeException();
     }
 
     final response = JsonRpcErrorResponse(
-      id: _handshakeId.toString(),
+      id: _handshakeId,
       error: JsonRpcError.serverError(message),
     );
     _encryptAndSend(jsonEncode(response.toJson()));
@@ -319,7 +319,7 @@ class WCClient {
       case WCMethod.SESSION_REQUEST:
         final param = WCSessionRequest.fromJson(request.params!.first);
         // print('SESSION_REQUEST $param');
-        _handshakeId = int.parse(request.id);
+        _handshakeId = request.id;
         _remotePeerId = param.peerId;
         _remotePeerMeta = param.peerMeta;
         _chainId = param.chainId;
@@ -402,7 +402,7 @@ class WCClient {
   }
 
   _resetState() {
-    _handshakeId = -1;
+    _handshakeId = null;
     _isConnected = false;
     _session = null;
     _peerId = null;
